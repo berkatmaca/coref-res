@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from token import Token
-
 class Sentence:
 
     def __init__(self):

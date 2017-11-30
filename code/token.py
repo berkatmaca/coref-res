@@ -19,7 +19,7 @@ class Token:
         return self.token
 
     def get_token_index(self):
-        return self.token_index
+        return int(self.token_index)
 
     def get_pos_tag(self):
         return self.pos_tag
