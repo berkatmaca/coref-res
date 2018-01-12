@@ -3,7 +3,7 @@
 
 class Token:
 
-    def __init__(self, splitted):
+    def __init__(self, splitted, sent_id):
         self.splitted = splitted
         self.doc_name = splitted[0]
         self.part_num = splitted[1]
@@ -14,6 +14,7 @@ class Token:
         self.named_ent = splitted[10]
         self.is_entity = True if self.named_ent is not '*' else False # not very true approach!
         self.coref = splitted[-1]
+        self.sent_id = sent_id
 
     def get_token(self):
         return self.token
@@ -32,3 +33,6 @@ class Token:
 
     def is_coref(self):
         return True if self.coref is not '-' else False
+
+    def get_sent_id(self):
+        return self.sent_id

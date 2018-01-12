@@ -11,6 +11,7 @@ class Corpus:
         self.file_path = file_path
         self.sent_list = list()
         self.corpus_dict = dict()
+        self.num_of_sents = int() # no of sents in the whole
         self.render_corpus()
 
     def get_sent_list(self):
@@ -22,10 +23,12 @@ class Corpus:
     def get_doc_names(self):
         return [self.corpus_dict.keys()]
 
+    def get_num_of_sents(self):
+        return self.num_of_sents
+
     def render_corpus(self):
     	sent_obj = Sentence()
     	sent_id = int() # no of sents in a specific doc
-    	num_of_sents = int() # no of sents in the whole
     	doc_id = -1
 
     	with open(self.file_path) as f:
@@ -35,11 +38,11 @@ class Corpus:
                     doc_id += 1
                     sent_id = 0
                     begin_line = line.split()
-                    doc_name = begin_line[2][1:-2] + '/' + begin_line[-1]
+                    doc_name = begin_line[2][1:-2]# + '/' + begin_line[-1]
                     self.corpus_dict[doc_name] = list()
                 # Doc end
                 elif re.match(r'\#e', line):
-                    num_of_sents += sent_id
+                    self.num_of_sents += sent_id
                 # Empty line
                 elif line.strip() == '':
                     sent_id += 1
@@ -48,5 +51,5 @@ class Corpus:
                     sent_obj = Sentence()
                 else:
                     splitted = line.split()
-                    token_obj = Token(splitted)
+                    token_obj = Token(splitted, sent_id)
                     sent_obj.add_token(token_obj)
